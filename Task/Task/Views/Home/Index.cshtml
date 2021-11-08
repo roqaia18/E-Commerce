@@ -1,0 +1,108 @@
+﻿@model  IEnumerable<Task.Models.Item>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+
+    .smallData {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card {
+        border-radius: 20px;
+        background: #fff;
+        box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+        transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+        padding: 14px 80px 18px 36px;
+        cursor: pointer;
+        position: relative;
+        border-color: white;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+        }
+
+        .card img {
+            height: 200px;
+            width: 200px
+        }
+
+    .x {
+        position: absolute;
+        bottom: 95%;
+        left: 95%;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        background-color: red;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        border-radius: 50%;
+        color: white;
+    }
+
+    .addCard {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 80px;
+        background-color: antiquewhite;
+        color: black;
+        font-weight: bolder;
+    }
+
+    a, a:hover {
+        text-decoration: none;
+        color: black;
+    }
+</style>
+<!-- Page content -->
+<div class="container-fluid mt--6" style="margin-top:30px">
+
+    <div class="row mt-3">
+
+        @foreach (var item in Model)
+        {
+            if (item.QTY > 0)
+            {
+
+        <div class="col-md-4 pb-2" style="margin-top:15px">
+
+            <div class="card">
+                <a asp-action="EachProduct" asp-route-id="@item.ID">
+                    <img src="@item.img" style="height:200px;width:200px" class="card-img-top img-fluid" alt="Product Image">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">@item.name</h5>
+                    <p class="card-text">@item.Description</p>
+
+                    <div class="smallData">
+                        @if (item.Discount != 0)
+                        {
+                            <p>Befor: <b style="text-decoration: line-through; color:red">@item.Price</b></p>
+                            <p>After: <b>@(item.Price-(item.Price * item.Discount)/100)</b></p>
+                        }
+                        else
+                        {
+                            <p>Price: <b>@item.Price</b></p>
+                        }
+                        <p>Stock: <b>@item.QTY</b></p>
+                         
+                    </div>
+
+                </div>
+                <a href="~/Cart/Buy?id=@item.ID" style="background-color:darkslategray" class="btn btn-primary"> <i class="fa fa-shopping-cart"></i> <span class="text">Add to cart</span> </a>
+            </div>
+        </div>
+            }
+        }
+    </div>
+</div>

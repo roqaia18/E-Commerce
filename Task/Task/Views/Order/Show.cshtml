@@ -1,0 +1,44 @@
+﻿@model  Task.Models.OrderDetail
+
+@{
+    ViewBag.Title = "Show Order";
+}
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Product</th>
+                            <th scope="col" class="text-center">Quantity</th>
+                            <th scope="col" class="text-right">Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ViewBag.items)
+                        {
+                            <tr>
+                                <td><img src="@item.Item.img" height="50" width="50" /> </td>
+                                <td>@item.Item.name</td>
+                                <td class="justify-content-center">@item.Quantity"</td>
+                                <td class="text-right">$@(item.Item.Price)</td>
+
+                            </tr>
+                        }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td class="text-right"><strong>$@ViewBag.Total</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
