@@ -38,10 +38,12 @@ namespace Task.Controllers
             List < OrderDetail > OrderDetails= (List<OrderDetail>)this.Session["cart"];
             foreach (var OrderITem in OrderDetails)
             {
-                OrderITem.Order = order;
+                //OrderITem.Order = order;
                 OrderITem.OrderID = order.ID;
+                OrderITem.ItemId = OrderITem.Item.ID;
                 Item item = Context.Items.Find(OrderITem.Item.ID);
                 item.QTY -= OrderITem.Quantity;
+                OrderITem.Item = null;
                 Context.OrderDetails.Add(OrderITem);
                 Context.SaveChanges();
             }
